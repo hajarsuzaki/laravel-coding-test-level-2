@@ -94,34 +94,56 @@
 
 <body>
 
-    <h2>User</h2>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>User</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($user as $key => $value)
-                <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $value->username }}</td>
-                    <td>
-                        <button style="width: 100px;"><a href="{{ route('user.update', $value->id)}}">Edit</a></button>
-                        <form method="POST" action="{{ route('user.delete', $value->id) }}">
-                            @csrf
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button style="width: 100px;">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <h2>Add Task</h2>
+    <div class="container">
+        <form action="{{ route('task.store')}}" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-25">
+                    <label for="name">Title</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="title" name="title" value="">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="name">Description</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="description" name="description" value="">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="name">Assign People</label>
+                </div>
+                <div class="col-75">
+                    <select name="user_id" id="user_id">
+                        @foreach($user as $result)
+                        <option value="{{ $result->id }}">{{ $result->username}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="name">Project</label>
+                </div>
+                <div class="col-75">
+                    <select name="project_id" id="project_id">
+                        @foreach($project as $result)
+                        <option value="{{ $result->id }}">{{ $result->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="Add">
+            </div>
+        </form>
     </div>
+
 </body>
 
 </html>

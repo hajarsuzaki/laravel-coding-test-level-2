@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,18 @@ Route::group(['prefix' => 'project','as' => 'project.',], function () {
     Route::delete('/delete/{id}', [ProjectController::class, 'delete'])->name('delete');
 
     
+});
+
+Route::group(['prefix' => 'user','as' => 'user.',], function () {
+    Route::get('/show', [AuthController::class, 'show'])->name('show');
+    Route::get('/update/{user}', [AuthController::class, 'update'])->name('update');
+    Route::post('/update/{user}', [AuthController::class, 'store_update'])->name('store_update');
+    Route::delete('/delete/{id}', [AuthController::class, 'delete'])->name('delete');
+
+
+});
+
+Route::group(['prefix' => 'task','as' => 'task.',], function () {
+    Route::get('/index', [TaskController::class, 'index'])->name('index');
+    Route::post('/store', [TaskController::class, 'store'])->name('store');
 });

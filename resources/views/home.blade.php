@@ -42,11 +42,16 @@
     @endif
     {{ __('You are logged in!') }}</p>
     <div>
-        <button><a href="{{ route('project.index')}}">Manage Users</a></button>
+        @hasanyrole('Super Admin')
+        <button><a href="{{ route('user.show')}}">Manage Users</a></button>
+        @endhasanyrole
+        @hasanyrole('User')
         <button><a href="{{ route('project.index')}}">Add Project</a></button>
+        <button><a href="{{ route('task.index')}}">Add Task</a></button>
+        @endhasanyrole
     </div>
     <br />
-    <div>
+    <!-- <div>
         <table>
             <thead>
                 <tr>
@@ -59,7 +64,7 @@
                 </tr>
             </thead>
         </table>
-    </div>
+    </div> -->
 
 </body>
 

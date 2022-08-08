@@ -12,7 +12,6 @@ class Task extends Model
     protected $table = 'task';
 
     protected $fillable = [
-        'kod_giatmara',
         'title',
         'description',
         'status',

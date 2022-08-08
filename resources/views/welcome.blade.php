@@ -188,6 +188,7 @@
             <div class="login-container-wrapper clearfix">
                 <div class="welcome">sign in to your account</div>
                 <div><i>username: Super Admin password: admin123</p></div>
+                <div><i>username: User password: user123</p></div>
                 <form class="form-horizontal login-form" id="form-login" class="p-t-15" role="form" method="POST" action="{{ route('post_login') }}">
                 @csrf
                     <div class="form-group relative">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Redirect;
 class AuthController extends Controller
 {
     /**
@@ -14,7 +15,7 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('login');
+        return view('welcome');
     }
 
     /**
@@ -64,9 +65,10 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $user = User::select('*')->get();
+        return view('user.index', compact('user'));
     }
 
     /**
@@ -75,9 +77,21 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+
+    public function update($user)
     {
-        //
+        $user = User::find($user);
+        return view('user.edit', compact('user'));
+    }
+
+    public function store_update($user, Request $request)
+    {
+        $user = User::find($user);
+        $user->update([
+            'username' => $request->username
+        ]);
+        return redirect()->route('user.show',compact('user'))->with('success','User Sucessfully Updated.');
+
     }
 
     /**
@@ -87,10 +101,6 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -98,8 +108,9 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        User::find($id)->delete();
+        return back()->with('success','User deleted.');
     }
 }

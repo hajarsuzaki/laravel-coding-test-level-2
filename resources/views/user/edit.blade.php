@@ -94,34 +94,24 @@
 
 <body>
 
-    <h2>User</h2>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>User</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($user as $key => $value)
-                <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $value->username }}</td>
-                    <td>
-                        <button style="width: 100px;"><a href="{{ route('user.update', $value->id)}}">Edit</a></button>
-                        <form method="POST" action="{{ route('user.delete', $value->id) }}">
-                            @csrf
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button style="width: 100px;">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <h2>Edit User</h2>
+    <div class="container">
+        <form action="{{ route('user.store_update', $user->id)}}" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-25">
+                    <label for="name">User</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="username" name="username" value="{{ $user->username }}">
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="Update">
+            </div>
+        </form>
     </div>
+
 </body>
 
 </html>
